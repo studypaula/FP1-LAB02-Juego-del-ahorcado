@@ -17,8 +17,8 @@ def elige_palabra(fichero="palabras.txt"):
     return random.choice(palabras)
 
 
-def normalizar(cadena):
-    """
+def normalizar(cadena):   
+   """
     Normaliza una cadena de texto realizando las siguientes operaciones:
         - convierte a minúsculas
         - quita espacios en blanco al principio y al final
@@ -29,10 +29,15 @@ def normalizar(cadena):
     
     Devuelve:
       Cadena de texto con la palabra normalizada
-    """
-    # TODO: Implementa esta función (y elimina la instrucción pass)
-    pass
-
+    """   
+   cadena = cadena.lower().strip()
+   cadena = cadena.replace("á", "a").replace("ä", "a")
+   cadena = cadena.replace("é", "e").replace("ë", "e")
+   cadena = cadena.replace("í", "i").replace("ï", "i")
+   cadena = cadena.replace("ó", "o").replace("ö", "o")
+   cadena = cadena.replace("ú", "u").replace("ü", "u")
+   return cadena
+  
 def ocultar(palabra_secreta, letras_usadas=""):
     '''Devuelve una cadena de texto con la palabra enmascarada. 
     Las letras que no están en letras_usadas se muestran como guiones bajos (_).
@@ -44,8 +49,13 @@ def ocultar(palabra_secreta, letras_usadas=""):
     Devuelve:
       Cadena de texto con la palabra enmascarada
     '''
-    # TODO: Implementa esta función (y elimina la instrucción pass)
-    pass
+    res= ""
+    for letra in palabra_secreta:
+        if letra in letras_usadas:
+            res += letra
+        else:
+            res += "_"     
+    return res          
 
 
 def ha_ganado(palabra_enmascarada):
@@ -57,14 +67,41 @@ def ha_ganado(palabra_enmascarada):
     Devuelve:
     - True si el jugador ha ganado, False en caso contrario
     '''
-    # TODO: Implementa esta función (y elimina la instrucción pass)
-    pass
+    if "_" in palabra_enmascarada:
+      return False
+    else:
+      return True 
+
+    
+
+def mostrar_estado(palabra_enmascarada, letras_usadas, intentos_restantes):
+    """Devuelve la palabra enmascarada, las letras usadas hasta entonces y los intentos restantes al jugador.
+    Palabra enmascarada: Las letras de la palabra hasta ahora halladas y barras que definen el resto de letras por hallar.
+    Letras usadas: Las letras hasta ahora intentadas tanto las acertadas como las no acertadas.
+    Intentos restantes: El número de intentos que le quedan al jugador para hallar la palabra secreta."""
+    print(f"Estado:{" ".join(palabra_enmascarada)}")
+    if len(letras_usadas) == 0:
+        print("Letras usadas: ninguna")
+    else:         
+        print(f"Letras usadas: {letras_usadas}")
+    print(f"Intentos restantes:{intentos_restantes}")    
+
+def pedir_letra (letras_usadas):
+    letra = input("Introduce una nueva letra")
+    while letra in letras_usadas:
+        print("Error. Dicha letra ya ha sido usada anteriormente.")
+        letra = input("Introduce una nueva letra")
+    while letra not in "abcdefghijklmnñopqrstuvwxyz":
+        print("Error. Introduzca una letra")
+        letra = input("Introduce una nueva letra")
+    while len(letra) > 1:
+        print("Error. Introduzca una única letra.") 
+        letra = input("Introduce una nueva letra")
+    return letra.lowwer()    
+
+    
 
 
-# TODO: Implementa la función mostrar_estado
-
-# TODO: Implementa la función pedir_letra
-
-# TODO: Implementa la función jugar
+def jugar()
 
 # TODO: Escribe el programa principal

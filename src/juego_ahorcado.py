@@ -88,6 +88,7 @@ def mostrar_estado(palabra_enmascarada, letras_usadas, intentos_restantes):
 
 def pedir_letra (letras_usadas):
     letra = input("Introduce una nueva letra")
+    letra.lowwer()
     while letra in letras_usadas:
         print("Error. Dicha letra ya ha sido usada anteriormente.")
         letra = input("Introduce una nueva letra")
@@ -97,7 +98,7 @@ def pedir_letra (letras_usadas):
     while len(letra) > 1:
         print("Error. Introduzca una única letra.") 
         letra = input("Introduce una nueva letra")
-    return letra.lowwer()    
+    return letra    
 
     
 

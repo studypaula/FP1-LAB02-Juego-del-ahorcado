@@ -88,7 +88,7 @@ def mostrar_estado(palabra_enmascarada, letras_usadas, intentos_restantes):
 
 def pedir_letra (letras_usadas):
     letra = input("Introduce una nueva letra")
-    letra.lowwer()
+    letra.lower()
     while letra in letras_usadas:
         print("Error. Dicha letra ya ha sido usada anteriormente.")
         letra = input("Introduce una nueva letra")
@@ -103,6 +103,41 @@ def pedir_letra (letras_usadas):
     
 
 
-def jugar()
+def jugar(palabra_secreta, intentos):
+   palabra_secreta = normalizar(palabra_secreta)
+   if not palabra_secreta :
+        return None
+   palabra_enmascarada = ocultar(palabra_secreta)
+   letras_usadas = ""   
+   while ha_ganado(palabra_enmascarada) == False and intentos != 0:
+        mostrar_estado(palabra_enmascarada, letras_usadas, intentos)
+        letra_elegida = pedir_letra(letras_usadas)
+        letras_usadas += letra_elegida
+        if letra_elegida not in palabra_secreta:
+            print("Dicha letra no pertenece a la palabra secreta.")
+            intentos -= 1
+        else:
+            print("Enhorabuena, esta letra sí pertenece a la palabra secreta.")   
+            palabra_enmascarada = ocultar(palabra_secreta, letras_usadas) 
+   if ha_ganado(palabra_enmascarada) == False:
+        print(f"Lo siento, ha perdido. La palabra secreta era {palabra_secreta}.")
+   else: 
+        print(f"¡Enorabuena! Ha ganado. La palabra secreta era {palabra_secreta}")   
 
-# TODO: Escribe el programa principal
+
+
+# PROGRAMA PRINCIPAL
+# Este bloque se ejecuta al lanzar el script: python juego_ahorcado.py
+# ----------------------------------------------------------------------
+if __name__ == "__main__":
+    
+    # 1. Obtener una palabra aleatoria
+    palabra_secreta = elige_palabra()
+    intentos = len(palabra_secreta) + 3
+    
+    # 2. Invocar a la función jugar con esa palabra
+    # NOTA: La función jugar tiene el valor por defecto de 6 intentos, 
+    # por lo que no es necesario pasar el segundo argumento.
+    jugar(palabra_secreta , intentos )
+
+
